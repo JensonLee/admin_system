@@ -64,7 +64,7 @@ export default {
       selectedRows:[],
       loadData:paramer=>{
         return getProjectManageDeliverablesList(paramer).then(res=>{
-          return res.result
+          return res.data
         })
       },
       alert:{

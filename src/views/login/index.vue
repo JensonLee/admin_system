@@ -8,7 +8,7 @@
     <a-form-item>
       <a-input
         v-decorator="[
-          'userName',
+          'username',
           { rules: [{ required: true, message: 'Please input your username!' }] },
         ]"
         placeholder="Username"
@@ -50,10 +50,14 @@ export default {
       this.form.validateFields((err, values) => {
         if (!err) {
           this.login(values).then(res=>{
-            if(this.$route.query.redirect){
-              this.$router.push({path:this.$route.query.redirect})
+            if(res.code ==='10000'){
+              if(this.$route.query.redirect){
+                this.$router.push({path:this.$route.query.redirect})
+              }else {
+                this.$router.push({path:"/"})
+              }
             }else {
-              this.$router.push({path:"/"})
+              this.$message.error(`${res.msg}`)
             }
           })
         }

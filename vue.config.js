@@ -3,8 +3,7 @@ module.exports = {
     proxy:{
       '/proxy':{
         //设置代理地址
-        //target:"http://106.14.162.49:8200",   
-        target:"http://127.0.0.1:8200",   
+        target:"http://106.14.162.49:9001",
         changeOrigin:true,
         ws:true,
         pathRewrite:{

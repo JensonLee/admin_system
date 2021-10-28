@@ -2,7 +2,7 @@ import state from "@/store/state";
 import {userInfo,login} from "@/httpsAPI/user";
 import storage from 'store'
 import {TOKEN} from "@/store/token.config";
-import {asyncRouterMap} from '@/router/router.config'
+import {asyncRouterMap,constantRouterMap} from '@/router/router.config'
 
 function hasPermission(permission, route) {
   if (route.meta && route.meta.permission) {
@@ -20,7 +20,7 @@ function hasPermission(permission, route) {
 
 function filterAsyncRouter(routerMap, roles) {
   const accessedRouters = routerMap.filter(route => {
-    if (hasPermission(roles, route)) {
+    if (hasPermission(roles.permissionList, route)) {
       if (route.children && route.children.length) {
         route.children = filterAsyncRouter(route.children, roles)
       }
@@ -39,13 +39,16 @@ export default {
     },
     SETROUTER(state,router){
       state.addRouter = router
+      state.router = constantRouterMap.concat(router)
     }
   },
   actions:{
     login({commit},params){
       return new Promise((resolve,reject)=>{
         login(params).then(res=>{
-          storage.set(TOKEN,res.result.token, 7 * 24 * 60 * 60 * 1000)
+          if(res.code ==='10000'){
+            storage.set(TOKEN,res.data.token, 7 * 24 * 60 * 60 * 1000)
+          }
           resolve(res)
         }).catch(err=>{
           reject(err)
@@ -55,15 +58,38 @@ export default {
     getUserInfo({commit}){
       return new Promise((resolve, reject) => {
         userInfo().then(res=>{
-          commit('SETROLEID',res.result.roleId)
+          console.log(res);
+          if(res.code==='10000'){
+            const result = res.data
+            if (result.role && result.role.permissions.length > 0) {
+              const role = result.role
+              role.permissions = result.role.permissions
+              role.permissions.map(per => {
+                if (per.actionEntitySet != null && per.actionEntitySet.length > 0) {
+                  const action = per.actionEntitySet.map(action => {
+                    return action.action
+                  })
+                  per.actionList = action
+                }
+              })
+              role.permissionList = role.permissions.map(permission => {
+                return permission.permissionId
+              })
+              /*commit('SET_ROLES', result.role)
+              commit('SET_INFO', result)*/
+            }
+
+            commit('SETROLEID',res.data.roleId)
+          }
           resolve(res)
         }).catch(err=>{
           reject(err)
         })
       })
     },
-    GenerateRoutes({commit}, roles){
+    GenerateRoutes({commit}, role){
       return new Promise(resolve=>{
+        const {roles} = role
         const accessedRouters = filterAsyncRouter(asyncRouterMap, roles)
         commit('SETROUTER',accessedRouters)
         resolve()

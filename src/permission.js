@@ -19,10 +19,11 @@ router.beforeEach((to,from,next)=>{
       if (store.getters.roleId===''){
         resetRouter()
         store.dispatch('getUserInfo').then(res=>{
-          console.log(res);
+          const roles = res.data && res.data.role
           //4.0版本的router已经弃用addRouters,使用addRouter代替，勿升级router
-          store.dispatch('GenerateRoutes',res.result.permissions).then(()=>{
-            router.addRoutes(asyncRouterMap)
+          store.dispatch('GenerateRoutes', {roles}).then(()=>{
+            console.log(store.getters.addRouter);
+            router.addRoutes(store.getters.addRouter)
             const redirect = decodeURIComponent(from.query.redirect || to.path)
             if (to.path === redirect) {
               // set the replace: true so the navigation will not leave a history record

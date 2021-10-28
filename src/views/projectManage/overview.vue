@@ -142,7 +142,7 @@ export default {
       columns,
       loadTaskData:parameter=>{
         return getProjectManageOverviewTask().then(res=>{
-          return res.result
+          return res.data
         })
       }
     }

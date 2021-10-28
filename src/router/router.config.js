@@ -44,6 +44,7 @@ export const asyncRouterMap = [
     name:"ProjectManage",
     component:()=>import('@/views/projectManage'),
     redirect:'/projectManage/overview/:projectId',
+    meta:{permission: ['project'], icon: 'project', title: '项目管理'},
     hidden:true,
     children:[
       {
@@ -100,14 +101,14 @@ export const asyncRouterMap = [
     path: '/demand',
     name: 'Demand',
     component: () => import('@/views/demand'),
-    meta: {permission: ['demand'], icon: 'file-add', title: '需求管理'},
+    meta: {permission: ['requirement'], icon: 'file-add', title: '需求管理'},
     redirect:'/demand/manage',
     children:[
       {
         path: '/demand/manage',
         name: 'DemandManage',
         component: () => import('@/views/demand/demand'),
-        meta: {permission: ['demand'], defaultMenu:"Demand", title: '需求管理'}
+        meta: {permission: ['requirement'], defaultMenu:"Demand", title: '需求管理'}
       }
     ]
   },
@@ -115,26 +116,26 @@ export const asyncRouterMap = [
     path: '/help',
     name: 'Help',
     component: () => import('@/views/helpOrder'),
-    meta: {permission: ['helpOrder'], icon: 'tags', title: '求助单'},
+    meta: {permission: ['worder'], icon: 'tags', title: '求助单'},
     redirect:'/help/Order/ordersEnt',
     children:[
       {
         path: '/help/Order/ordersEnt',
         name: 'OrdersEnt',
         component: () => import('@/views/helpOrder/ordersEnt/index'),
-        meta: { permission: ['helpOrder'], defaultMenu: 'Help', title: '已收到' }
+        meta: { permission: ['worder'], defaultMenu: 'Help', title: '已收到' }
       },
       {
         path: '/help/Order/ordersEnt/detail',
         name: 'OrdersDetail',
         component: () => import('@/views/helpOrder/ordersEnt/detail'),
-        meta: { permission: ['helpOrder'], defaultMenu: 'HelpDetail', title: '已收到详情' }
+        meta: { permission: ['worder'], defaultMenu: 'HelpDetail', title: '已收到详情' }
       },
       {
         path: '/help/Order',
         name: 'HelpOrder',
         component: () => import('@/views/helpOrder/orders'),
-        meta: {permission: ['helpOrder'],defaultMenu:'Help', title: '求助单'}
+        meta: {permission: ['worder'],defaultMenu:'Help', title: '求助单'}
       }
     ]
   },
@@ -142,14 +143,14 @@ export const asyncRouterMap = [
     path: '/effect',
     name: 'Effect',
     component: () => import('@/views/effect'),
-    meta: {permission: ['effect'], icon: 'audit', title: '效能管理'},
+    meta: {permission: ['report'], icon: 'audit', title: '效能管理'},
     redirect:"/effect/manage",
     children:[
       {
         path: '/effect/manage',
         name: 'EffectManage',
         component: () => import('@/views/effect/effect'),
-        meta: {permission: ['effect'],defaultMenu:'Effect', title: '效能管理'},
+        meta: {permission: ['report'],defaultMenu:'Effect', title: '效能管理'},
       }
     ]
   },
@@ -157,32 +158,32 @@ export const asyncRouterMap = [
     path: '/knowledge',
     name: 'Knowledge',
     component: () => import('@/views/knowledgeBase'),
-    meta: {permission: ['knowledgeBase'], icon: 'cloud-server', title: '知识库'},
+    meta: {permission: ['wiki'], icon: 'cloud-server', title: '知识库'},
     redirect:"/knowledge/myself",
     children:[
       {
         path: '/knowledge/myself',
         name: 'Myself',
         component: () => import('@/views/knowledgeBase/myself/index'),
-        meta: { permission: ['knowledgeBase'], defaultMenu: "Knowledge", title: '我的知识库' }
+        meta: { permission: ['wiki'], defaultMenu: "Knowledge", title: '我的知识库' }
       },
       {
         path: '/knowledge/myself/detail',
         name: 'Myself',
         component: () => import('@/views/knowledgeBase/myself/detail'),
-        meta: { permission: ['dashboard'], defaultMenu: "Knowledge", title: '我的知识库详情' }
+        meta: { permission: ['wiki'], defaultMenu: "Knowledge", title: '我的知识库详情' }
       },
       {
         path: '/knowledge/baseing',
         name: 'Baseing',
         component: () => import('@/views/knowledgeBase/baseing/index'),
-        meta: { permission: ['dashboard'], defaultMenu: "Knowledge", title: '公共知识库' }
+        meta: { permission: ['wiki'], defaultMenu: "Knowledge", title: '公共知识库' }
       },
       {
         path: '/knowledge/Collection',
         name: 'Collection',
         component: () => import('@/views/knowledgeBase/Collection/index'),
-        meta: { permission: ['dashboard'], defaultMenu: "Knowledge", title: '我的收藏' }
+        meta: { permission: ['wiki'], defaultMenu: "Knowledge", title: '我的收藏' }
       }
     ]
   },
@@ -190,32 +191,32 @@ export const asyncRouterMap = [
     path: '/PersonalDevelopment',
     name: 'PersonalDevelopment',
     component: () => import('@/views/personalDevelopment'),
-    meta: {permission: ['personalDevelopment'], icon: 'solution', title: '个人提升'},
+    meta: {permission: ['course'], icon: 'solution', title: '个人提升'},
     redirect:"/personalDevelopment/course",
     children:[
       {
         path: '/personalDevelopment/course',
         name: 'PersonalDevelopmentCourse',
         component: () => import('@/views/personalDevelopment/course'),
-        meta: {permission: ['personalDevelopment'],defaultMenu:"PersonalDevelopment", title: '课程中心'}
+        meta: {permission: ['course'],defaultMenu:"PersonalDevelopment", title: '课程中心'}
       },
       {
         path: '/personalDevelopment/learningRecords',
         name: 'PersonalDevelopmentRecords',
         component: () => import('@/views/personalDevelopment/learningRecords'),
-        meta: {permission: ['personalDevelopment'],defaultMenu:"PersonalDevelopment", title: '学习记录'}
+        meta: {permission: ['course'],defaultMenu:"PersonalDevelopment", title: '学习记录'}
       },
       {
         path: '/personalDevelopment/uploadCourse',
         name: 'PersonalDevelopmentUploadCourse',
         component: () => import('@/views/personalDevelopment/uploadCourse'),
-        meta: {permission: ['personalDevelopment'],defaultMenu:"PersonalDevelopment", title: '上传课程'}
+        meta: {permission: ['course'],defaultMenu:"PersonalDevelopment", title: '上传课程'}
       },
       {
         path: '/personalDevelopment/test',
         name: 'PersonalDevelopmentTest',
         component: () => import('@/views/personalDevelopment/test'),
-        meta: {permission: ['personalDevelopment'],defaultMenu:"PersonalDevelopment", title: '上传课程'}
+        meta: {permission: ['course'],defaultMenu:"PersonalDevelopment", title: '上传课程'}
       }
     ]
   }

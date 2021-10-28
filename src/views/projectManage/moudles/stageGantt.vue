@@ -134,7 +134,7 @@ export default {
     this.$nextTick(()=>{
       getProjectManageGantt().then(res=>{
         console.log(res);
-        this.tasks = res.result.tasks
+        this.tasks = res.data.tasks
       })
     })
   }

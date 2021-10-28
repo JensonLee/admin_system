@@ -92,7 +92,7 @@ export default {
       columns,
       loadData:paramer=>{
         return getProjectManageReviewList(paramer).then(res=>{
-          return res.result
+          return res.data
         })
       }
     }

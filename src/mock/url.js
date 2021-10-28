@@ -1,6 +1,6 @@
 export const URL = {
   login:'/user/login',
-  userInfo:'/user/info',
+  userInfo:'/user/profile/userInfo',
   projectList:'/project/list',
   projectOverviewTask:'/project/manage/over/task',
   projectReviewList:'/project/manage/review/list',

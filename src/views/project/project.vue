@@ -99,7 +99,7 @@ export default {
       projectStatus,
       loadData:parameter=>{
         return getProjectList(parameter).then(res=>{
-          return res.result
+          return res.data
         })
       },
       tableListArr:(()=>{

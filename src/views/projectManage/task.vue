@@ -68,7 +68,7 @@ export default {
       columns,
       loadData:paramer=>{
         return getProjectManageTaskList().then(res=>{
-          return res.result
+          return res.data
         })
       },
       selectedRowKeys:[],

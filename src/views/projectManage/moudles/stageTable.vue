@@ -153,7 +153,7 @@ export default {
   },
   mounted() {
     getProjectManageStageList().then(res=>{
-      this.tableTreeData = res.result.data;
+      this.tableTreeData = res.data.data;
       this.ganttComputedData()
     })
     this.treeDrop()
