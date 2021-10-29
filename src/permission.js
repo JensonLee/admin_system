@@ -22,7 +22,6 @@ router.beforeEach((to,from,next)=>{
           const roles = res.data && res.data.role
           //4.0版本的router已经弃用addRouters,使用addRouter代替，勿升级router
           store.dispatch('GenerateRoutes', {roles}).then(()=>{
-            console.log(store.getters.addRouter);
             router.addRoutes(store.getters.addRouter)
             const redirect = decodeURIComponent(from.query.redirect || to.path)
             if (to.path === redirect) {

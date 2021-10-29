@@ -3,6 +3,7 @@ import {userInfo,login} from "@/httpsAPI/user";
 import storage from 'store'
 import {TOKEN} from "@/store/token.config";
 import {asyncRouterMap,constantRouterMap} from '@/router/router.config'
+import cloneDeep from 'lodash.clonedeep'
 
 function hasPermission(permission, route) {
   if (route.meta && route.meta.permission) {
@@ -19,7 +20,8 @@ function hasPermission(permission, route) {
 }
 
 function filterAsyncRouter(routerMap, roles) {
-  const accessedRouters = routerMap.filter(route => {
+  let asyncRouter = cloneDeep(routerMap)
+  const accessedRouters = asyncRouter.filter(route => {
     if (hasPermission(roles.permissionList, route)) {
       if (route.children && route.children.length) {
         route.children = filterAsyncRouter(route.children, roles)

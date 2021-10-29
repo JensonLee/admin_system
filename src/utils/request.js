@@ -2,6 +2,7 @@ import axios from "axios";
 import {VueAxios} from './axios'
 import storage from 'store'
 import {TOKEN} from '@/store/token.config'
+import router from "../router";
 const request =axios.create({
   baseURL:"",
   timeout: 6000
@@ -22,6 +23,10 @@ request.interceptors.request.use(config => {
 
 // response interceptor
 request.interceptors.response.use((response) => {
+  if(response.data.code===401){
+    storage.remove(TOKEN)
+    router.replace('/login')
+  }
   return response.data
 }, errorHandle)
 
